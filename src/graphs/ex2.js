@@ -1,5 +1,5 @@
 import React from 'react';
-import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie} from 'victory';
+import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie, VictoryTooltip} from 'victory';
 
 class Example2 extends React.Component {
   render() {
@@ -8,6 +8,8 @@ class Example2 extends React.Component {
     const dataSet1 = this.getDataSet1();
     const dataSet2 = this.getDataSet2();
     const dataSetPIE = this.getDataSetPIE();
+    const dataSetTOOLTIP = this.getDataSetTOOLTIP();
+    const dataSetTOOLTIP2 = this.getDataSetTOOLTIP2();
     const tickValues = this.getTickValues();
 
 
@@ -54,6 +56,8 @@ class Example2 extends React.Component {
             />
             {/* This will be the first data line */}
             <VictoryLine
+              //the victoryvironoi tool tip worked but only sorta. the victorytooltip only seems to work with bar charts?
+              labelComponent={<VictoryTooltip/>}
               data={dataSet1}
               domain={{
                 x:[0,5],
@@ -63,6 +67,7 @@ class Example2 extends React.Component {
               interpolation="monotoneX"
               style={styles.lineOne}
             />
+
 
             {/* //this will just be a second line plotted against same axis, but if I wanted to put a different line with different y values that can be done as well */}
             <VictoryLine
@@ -75,6 +80,9 @@ class Example2 extends React.Component {
               interpolation="monotoneX"
               style={styles.lineTwo}
             />
+            {/* <VictoryVoronoiTooltip
+            labels={(d) => `x: ${d.x} \n y: ${d.y}`}
+          /> */}
           </g>
         </svg>
 
@@ -208,8 +216,7 @@ class Example2 extends React.Component {
           viewBox="0 0 400 325">
           <g transform={"translate(-10,30)"}>
             <VictoryAxis
-              // scale="time" not sure how the scale value formats things, but time was not needed for ints
-              //what does standalone do?
+
               standalone={false}
               style={styles.axisTime}
               tickValues={tickValues}
@@ -223,21 +230,25 @@ class Example2 extends React.Component {
                style={styles.leftVerticalAxis}
                offsetX={50}
             />
+
+
             {/* This will be the first data line */}
             <VictoryBar
-              data={dataSet1}
+              labelComponent={<VictoryTooltip/>}
+              data={dataSetTOOLTIP}
               domain={{
                 x:[0,5],
                 y:[0,4]
               }}
-              // this interpolation changes the style of the line
+
               interpolation="natural"
               style={styles.lineOne}
             />
 
-            {/* //this will just be a second line plotted against same axis, but if I wanted to put a different line with different y values that can be done as well */}
+
             <VictoryBar
-              data={dataSet2}
+              labelComponent={<VictoryTooltip/>}
+              data={dataSetTOOLTIP2}
               domain={{
                 x:[0,5],
                 y:[0,4]
@@ -256,12 +267,33 @@ class Example2 extends React.Component {
 
   getDataSet1() {
     return [
-      {x:0, y:0},
-      {x:1, y:1},
-      {x:2, y:2},
-      {x:3, y:2},
-      {x:4, y:3},
-      {x:5, y:4},
+      {x:0, y:0, label:0},
+      {x:1, y:1, label:1},
+      {x:2, y:2, label:2},
+      {x:3, y:2, label:2},
+      {x:4, y:3, label:3},
+      {x:5, y:4, label:4},
+    ]
+  }
+
+  getDataSetTOOLTIP() {
+    return [
+      {x:0, y:0, label: "Hello"},
+      {x:1, y:1, label: "Jason"},
+      {x:2, y:2, label: "How"},
+      {x:3, y:2, label: "Are"},
+      {x:4, y:3, label: "You"},
+      {x:5, y:4, label: "Today?"},
+    ]
+  }
+
+  getDataSetTOOLTIP2() {
+    return [
+      {x:0.5, y:0},
+      {x:1.5, y:1},
+      {x:2.5, y:2},
+      {x:3.5, y:2},
+      {x:4.5, y:3},
     ]
   }
 

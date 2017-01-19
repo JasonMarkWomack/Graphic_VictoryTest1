@@ -9,10 +9,12 @@ class App extends Component {
     return (
       <div className="App">
 
-        <div className="jumbotron">
-          <h1 className="App-intro">
-            GRAPHIC
-          </h1>
+        <div className="container">
+          <div className="jumbotron">
+            <h1 className="App-intro">
+              GRAPHIC
+            </h1>
+          </div>
         </div>
 
         <div className="container">
